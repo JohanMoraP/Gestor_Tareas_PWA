@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1A1A1A" />
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="barra-estado">
+        <span id="estado-conexion" class="estado en-linea">● En línea</span>
+        <button id="btn-instalar" type="button" hidden>⬇ Instalar app</button>
+      </div>
+      <h1>Gestor de Tareas</h1>
+      <p class="subtitulo">
+        Proyecto base — Electiva PWA, cierre de los Bloques 1 y 2.
+      </p>
+
+      <form id="form-tarea" class="form-tarea">
+        <input
+          type="text"
+          id="input-titulo"
+          placeholder="Nueva tarea..."
+          required
+        />
+        <select id="input-prioridad">
+          <option value="baja">Baja</option>
+          <option value="media" selected>Media</option>
+          <option value="alta">Alta</option>
+        </select>
+        <button type="submit">Agregar</button>
+      </form>
+
+      <div class="barra-sensores">
+        <button type="button" id="btn-sensores">📳 Activar agitar para deshacer</button>
+        <button type="button" id="btn-deshacer" disabled>↩ Deshacer eliminación</button>
+        <span id="lectura-sensores" class="lectura-sensores" aria-live="off"></span>
+      </div>
+
+      <div class="barra-avisos">
+        <button type="button" id="btn-avisos">🔔 Activar avisos</button>
+        <button type="button" id="btn-push" disabled>📡 Suscribir a push</button>
+        <button type="button" id="btn-push-prueba" disabled>✉ Enviar push de prueba</button>
+        <span id="estado-avisos" class="estado-avisos" role="status"></span>
+      </div>
+      <p id="estado-sync" class="estado-sync" role="status"></p>
+
+      <p id="mensaje-dispositivo" class="mensaje-dispositivo" role="status" hidden></p>
+
+      <ul id="lista-tareas" class="lista-tareas"></ul>
+    </main>
+
+    <dialog id="dlg-camara" class="dlg-camara">
+      <video id="video-camara" autoplay playsinline muted></video>
+      <div class="dlg-acciones">
+        <button type="button" id="btn-capturar">Capturar</button>
+        <button type="button" id="btn-cancelar-camara">Cancelar</button>
+      </div>
+    </dialog>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
