@@ -1,142 +1,559 @@
+/* ==========================================================================
+   Gestor de Tareas — Estilos Visuales Modernos (SaaS / Notion-like)
+   Diseño minimalista, accesible y completamente responsivo
+   ========================================================================== */
+
 :root {
-  --ink: #1a1a1a;
-  --gold: #ffcc29;
-  --gold-deep: #b8860b;
-  --line: #e2e2e2;
-  --danger: #c0392b;
+  /* Paleta base neutra y fría */
+  --bg-app: #f8fafc;
+  --surface: #ffffff;
+  --surface-subtle: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --border-subtle: #e2e8f0;
+  --border-focus: #0f172a;
+  
+  /* Textos y contrastes */
+  --text-main: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --text-disabled: #64748b;
+  --bg-disabled: #f1f5f9;
+
+  /* Botones primarios */
+  --primary-btn-bg: #0f172a;
+  --primary-btn-text: #ffffff;
+  --primary-btn-hover: #1e293b;
+
+  /* Estados semánticos y prioridades */
+  --priority-baja: #0284c7;
+  --priority-media: #f59e0b;
+  --priority-alta: #ef4444;
+
+  --success-bg: #f0fdf4;
+  --success-text: #166534;
+  --success-border: #bbf7d0;
+
+  --danger-bg: #fef2f2;
+  --danger-text: #991b1b;
+  --danger-border: #fecaca;
+
+  --warning-bg: #fefce8;
+  --warning-text: #854d0e;
+  --warning-border: #fef08a;
+
+  --info-bg: #eff6ff;
+  --info-text: #1e40af;
+  --info-border: #bfdbfe;
+
+  /* Sombras suaves difusas */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-main: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
 }
 
-* { box-sizing: border-box; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  background: #f4f1e8;
-  color: var(--ink);
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── Contenedor Principal Centrado ────────────────────────────────────────── */
 .app {
-  max-width: 560px;
-  margin: 3em auto;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 10px 40px -20px rgba(0,0,0,.25);
-  padding: 2em 2.2em;
+  max-width: 620px;
+  margin: 3rem auto;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-main);
+  padding: 2.25rem;
 }
 
-h1 { font-size: 1.6em; margin: 0 0 .1em; }
-.subtitulo { color: #777; font-size: .85em; margin: 0 0 1.4em; }
+/* ── Barra Superior de Estado y Botón Instalar ───────────────────────────── */
+.barra-estado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
 
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.estado.en-linea {
+  background: var(--success-bg);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+}
+
+.estado.sin-conexion {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  border: 1px solid var(--danger-border);
+  font-weight: 600;
+}
+
+#btn-instalar {
+  background: var(--primary-btn-bg);
+  color: var(--primary-btn-text);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+#btn-instalar:hover {
+  background: var(--primary-btn-hover);
+}
+
+/* ── Encabezado y Jerarquía Tipográfica ──────────────────────────────────── */
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.025em;
+  margin: 0 0 0.35rem;
+}
+
+.subtitulo {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0 0 1.75rem;
+}
+
+/* ── Formulario de Nueva Tarea ───────────────────────────────────────────── */
 .form-tarea {
   display: flex;
-  gap: .5em;
-  margin-bottom: 1.4em;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
-.form-tarea input[type="text"] {
-  flex: 1 1 220px;
-  padding: .6em .8em;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  font-size: .95em;
-}
-.form-tarea select {
-  padding: .6em .5em;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-.form-tarea button {
-  background: var(--ink);
-  color: var(--gold);
-  border: none;
-  border-radius: 8px;
-  padding: .6em 1.1em;
-  font-weight: 700;
-  cursor: pointer;
-}
-.form-tarea button:hover { background: #000; }
 
-.lista-tareas { list-style: none; margin: 0; padding: 0; display: grid; gap: .5em; }
+.form-tarea input[type="text"] {
+  flex: 1 1 240px;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-tarea input[type="text"]:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+.form-tarea input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+.form-tarea select {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--text-body);
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-tarea select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+.form-tarea button[type="submit"] {
+  background: var(--primary-btn-bg);
+  color: var(--primary-btn-text);
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.form-tarea button[type="submit"]:hover {
+  background: var(--primary-btn-hover);
+}
+
+.form-tarea button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* ── Barras Secundarias de Herramientas (Sensores y Avisos) ───────────────── */
+.barra-sensores,
+.barra-avisos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.barra-sensores button,
+.barra-avisos button {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-body);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.barra-sensores button:hover:not(:disabled),
+.barra-avisos button:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: #cbd5e1;
+  color: var(--text-main);
+}
+
+/* Estados deshabilitados claramente legibles y accesibles */
+button:disabled,
+.barra-sensores button:disabled,
+.barra-avisos button:disabled,
+.btn-nota:disabled {
+  background: var(--bg-disabled) !important;
+  color: var(--text-disabled) !important;
+  border-color: var(--border-subtle) !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+}
+
+.lectura-sensores {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.estado-avisos {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ── Mensajes Semánticos y Estado de Sincronización ───────────────────────── */
+.estado-sync {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0 1.25rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  display: inline-block;
+  width: 100%;
+}
+
+.estado-sync.pendiente {
+  color: var(--warning-text);
+  background: var(--warning-bg);
+  border-color: var(--warning-border);
+  font-weight: 600;
+}
+
+.mensaje-dispositivo {
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
+  color: var(--info-text);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.4;
+}
+
+/* ── Lista de Tareas y Tarjetas de Tarea ──────────────────────────────────── */
+.lista-tareas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
 .tarea {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--text-muted);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
   display: flex;
   flex-direction: column;
-  gap: .5em;
-  padding: .7em .9em;
-  border: 1px solid var(--line);
-  border-left: 4px solid #999;
-  border-radius: 8px;
+  gap: 0.65rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
+
+.tarea:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-top-color: #cbd5e1;
+  border-right-color: #cbd5e1;
+  border-bottom-color: #cbd5e1;
+}
+
+/* Indicadores laterales según prioridad */
+.tarea--baja {
+  border-left-color: var(--priority-baja);
+}
+
+.tarea--media {
+  border-left-color: var(--priority-media);
+}
+
+.tarea--alta {
+  border-left-color: var(--priority-alta);
+}
+
 .tarea-fila {
   display: flex;
   align-items: center;
-  gap: .7em;
+  gap: 0.85rem;
 }
-.tarea--baja { border-left-color: #6fa8dc; }
-.tarea--media { border-left-color: var(--gold-deep); }
-.tarea--alta { border-left-color: var(--danger); }
-.tarea-fila span { flex: 1; }
-.tarea--completada .tarea-fila span { text-decoration: line-through; color: #999; }
-.btn-eliminar {
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: .3em .6em;
-  font-size: .78em;
-  cursor: pointer;
-  color: var(--danger);
-}
-.btn-eliminar:hover { background: #fdecea; }
 
+.tarea-fila input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--primary-btn-bg);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.tarea-fila span {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+/* Tarea completada */
+.tarea--completada {
+  background: #fbfcfd;
+  opacity: 0.85;
+}
+
+.tarea--completada .tarea-fila span {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.btn-eliminar {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--danger-text);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-eliminar:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+}
+
+/* ── Fila de Nota Privada Cifrada ────────────────────────────────────────── */
 .nota-fila {
   display: flex;
-  gap: .4em;
-  padding-left: 1.9em;
+  gap: 0.5rem;
+  padding-left: 2rem;
+  flex-wrap: wrap;
 }
+
 .nota-input {
-  flex: 1 1 auto;
+  flex: 1 1 180px;
   min-width: 0;
-  padding: .4em .6em;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  font-size: .82em;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
+
+.nota-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08);
+}
+
+.nota-input::placeholder {
+  color: #94a3b8;
+}
+
 .btn-nota {
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: .3em .6em;
-  font-size: .78em;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 7px;
+  padding: 0.38rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-body);
   cursor: pointer;
   white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
-.btn-nota:hover:not(:disabled) { background: #fff8e1; }
-.btn-nota:disabled { opacity: .4; cursor: not-allowed; }
 
-/* Sesión 23: barra de estado y botón de instalación */
-.barra-estado { display: flex; justify-content: space-between; align-items: center; gap: .6em; margin-bottom: .8em; font-size: .8em; }
-.estado.en-linea { color: #2e7d32; }
-.estado.sin-conexion { color: var(--danger); font-weight: 600; }
-#btn-instalar { background: var(--ink); color: var(--gold); border: 0; border-radius: 8px; padding: .4em .8em; cursor: pointer; }
+.btn-nota:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: #cbd5e1;
+  color: var(--text-main);
+}
 
-/* Sesión 24: adjuntos (foto, ubicación) y diálogo de cámara */
-.adjuntos-fila { display: flex; align-items: center; gap: .5em; flex-wrap: wrap; margin-top: .4em; }
-.miniatura { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
-.dato-ubicacion { font-size: .75em; color: #555; }
-.mensaje-dispositivo { background: #fff6dd; border: 1px solid var(--gold-deep); border-radius: 8px; padding: .5em .8em; font-size: .85em; }
-.dlg-camara { border: 0; border-radius: 14px; padding: 1em; max-width: 92vw; }
-.dlg-camara video { width: min(560px, 84vw); border-radius: 10px; background: #000; display: block; }
-.dlg-acciones { display: flex; gap: .6em; justify-content: flex-end; margin-top: .8em; }
+/* ── Fila de Adjuntos (Foto, Ubicación) ───────────────────────────────────── */
+.adjuntos-fila {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-left: 2rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
 
-/* Sesión 25: barra de sensores */
-.barra-sensores { display: flex; align-items: center; gap: .5em; flex-wrap: wrap; margin-bottom: .8em; }
-.barra-sensores button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: .4em .7em; cursor: pointer; font-size: .8em; }
-.barra-sensores button:disabled { opacity: .45; cursor: not-allowed; }
-.lectura-sensores { font-size: .75em; color: #555; font-variant-numeric: tabular-nums; }
+.miniatura {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
 
-/* Sesión 26: avisos (notificaciones, push) y estado de sincronización */
-.barra-avisos { display: flex; align-items: center; gap: .5em; flex-wrap: wrap; margin-bottom: .6em; }
-.barra-avisos button { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: .4em .7em; cursor: pointer; font-size: .8em; }
-.barra-avisos button:disabled { opacity: .45; cursor: not-allowed; }
-.estado-avisos { font-size: .75em; color: #555; }
-.estado-sync { font-size: .78em; color: #555; margin: 0 0 .8em; }
-.estado-sync.pendiente { color: var(--gold-deep); font-weight: 600; }
+.dato-ubicacion {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0.25rem 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Diálogo Modal de Cámara ─────────────────────────────────────────────── */
+.dlg-camara {
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.5rem;
+  max-width: 92vw;
+  background: var(--surface);
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+
+.dlg-camara::backdrop {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.dlg-camara video {
+  width: min(560px, 84vw);
+  border-radius: 12px;
+  background: #000000;
+  display: block;
+}
+
+.dlg-acciones {
+  display: flex;
+  gap: 0.65rem;
+  justify-content: flex-end;
+  margin-top: 1.15rem;
+}
+
+.dlg-acciones button {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#btn-capturar {
+  background: var(--primary-btn-bg);
+  color: var(--primary-btn-text);
+  border: 1px solid transparent;
+}
+
+#btn-capturar:hover {
+  background: var(--primary-btn-hover);
+}
+
+#btn-cancelar-camara {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-body);
+}
+
+#btn-cancelar-camara:hover {
+  background: var(--surface-hover);
+}
+
+/* ── Adaptabilidad Responsiva (Móviles) ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .app {
+    margin: 1rem auto;
+    padding: 1.35rem;
+    border-radius: 14px;
+  }
+
+  h1 {
+    font-size: 1.45rem;
+  }
+
+  .nota-fila,
+  .adjuntos-fila {
+    padding-left: 0;
+  }
+
+  .form-tarea input[type="text"] {
+    flex: 1 1 100%;
+  }
+
+  .form-tarea select,
+  .form-tarea button[type="submit"] {
+    flex: 1;
+  }
+}

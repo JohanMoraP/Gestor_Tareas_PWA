@@ -7,5 +7,5 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
-"servidor/claves-vapid.json" 
-"servidor/datos.json" 
+servidor/claves-vapid.json
+servidor/datos.json
